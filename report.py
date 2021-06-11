@@ -1,13 +1,27 @@
 import time,threading,sys
+import matplotlib.pyplot as plt
+import numpy as np
 from algorithm import *
 
 sys.setrecursionlimit(10**8)
 threading.stack_size(10**8)
 
+iteration = 2
+ns = list(range(400))
+orders = [['Ascending', 1], ['Descending', 2], ['Random', 3]]
+
+def plot(plotData):
+    colors=['red','green','black','orange','blue','pink']
+    fig, ax = plt.subplots()
+    for key in list(plotData.keys()):
+        ax.plot(ns, plotData[key], color=colors[list(plotData.keys()).index(key)], label=key)
+    ax.set(xlabel='n', ylabel='Average Time (seconds)',
+           title='Merge Sort vs Quick Sort ('+str(iteration)+' iterations averaged for each case)')
+    ax.grid()
+    plt.legend()
+    plt.show()
+
 def generateReport():
-    iteration = 1
-    ns = [10, 100, 1000]
-    orders = [['Ascending', 1], ['Descending', 2], ['Random', 3]]
     plotData= {}
     for o in orders:
         for n in ns:
@@ -38,7 +52,7 @@ def generateReport():
             if not (key in plotData):
                 plotData[key] = []
             plotData[key].append(totalTime)
-    print(plotData[list(plotData.keys())[0]])
+    plot(plotData)
 
 
 
