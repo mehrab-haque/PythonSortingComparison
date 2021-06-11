@@ -1,4 +1,5 @@
 import random,time,sys,threading
+from tabulate import tabulate
 from algorithm import *
 
 sys.setrecursionlimit(10**6)
@@ -24,6 +25,10 @@ def evaluate(n,order):
     quickSort(duplicateArr, 0, n-1)
     end = time.time()
     print("Time taken by quick sort : " + str(end - start) + "seconds...")
+    tableData=[['Merge Sort','Quick Sort']]
+    for i in range(n):
+        tableData.append([arr[i],duplicateArr[i]])
+    print(tabulate(tableData, headers='firstrow', tablefmt='fancy_grid'))
 
 def takeInput():
     print("Enter the length of array")
