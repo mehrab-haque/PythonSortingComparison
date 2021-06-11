@@ -1,21 +1,12 @@
-import random,time,sys,threading
+import time,sys,threading
 from tabulate import tabulate
 from algorithm import *
 
-sys.setrecursionlimit(10**6)
+sys.setrecursionlimit(10**8)
 threading.stack_size(10**8)
 
 def evaluate(n,order):
-    arr=[]
-    offset=random.randint(-512,512)
-    if order==1:
-        for i in range(n):
-            arr.append(random.randint(i*4,(i+1)*4)+offset)
-    elif order==2:
-        for i in range(n):
-            arr.append(random.randint((n-i-2)*4,(n-i-1)*4)+offset)
-    elif order==3:
-        arr=random.sample(range(1+offset,n*4+offset), n)
+    arr=getArray(n,order)
     duplicateArr=arr.copy()
     start=time.time()
     mergeSort(arr,0,n-1)

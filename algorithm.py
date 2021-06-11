@@ -1,3 +1,5 @@
+import random
+
 def merge(arr, l, m, r):
     n1 = m - l + 1
     n2 = r - m
@@ -51,3 +53,16 @@ def quickSort(arr, low, high):
         pi = partition(arr, low, high)
         quickSort(arr, low, pi - 1)
         quickSort(arr, pi + 1, high)
+
+def getArray(n,order):
+    arr = []
+    offset = random.randint(-512, 512)
+    if order == 1:
+        for i in range(n):
+            arr.append(random.randint(i * 4, (i + 1) * 4) + offset)
+    elif order == 2:
+        for i in range(n):
+            arr.append(random.randint((n - i - 2) * 4, (n - i - 1) * 4) + offset)
+    elif order == 3:
+        arr = random.sample(range(1 + offset, n * 4 + offset), n)
+    return arr
