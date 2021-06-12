@@ -1,18 +1,18 @@
 import time,threading,sys
 import matplotlib.pyplot as plt
-import numpy as np
 from algorithm import *
 
 sys.setrecursionlimit(10**8)
 threading.stack_size(10**8)
 
-iteration = 2
-ns = list(range(400))
+iteration = 10
+ns = range(1000)
 orders = [['Ascending', 1], ['Descending', 2], ['Random', 3]]
 
 def plot(plotData):
     colors=['red','green','black','orange','blue','pink']
     fig, ax = plt.subplots()
+
     for key in list(plotData.keys()):
         ax.plot(ns, plotData[key], color=colors[list(plotData.keys()).index(key)], label=key)
     ax.set(xlabel='n', ylabel='Average Time (seconds)',
@@ -27,8 +27,9 @@ def generateReport():
         for n in ns:
             #Merge Sort
             totalTime = 0
+            originalArray = getArray(n, o[1])
             for i in range(iteration):
-                arr = getArray(n, o[1])
+                arr = originalArray.copy()
                 start=time.time()
                 mergeSort(arr,0,n-1)
                 end=time.time()
@@ -41,7 +42,7 @@ def generateReport():
             # Quick Sort
             totalTime = 0
             for i in range(iteration):
-                arr = getArray(n, o[1])
+                arr = originalArray.copy()
                 start = time.time()
                 quickSort(arr, 0, n - 1)
                 end = time.time()
